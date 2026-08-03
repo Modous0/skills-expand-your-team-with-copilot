@@ -25,6 +25,24 @@ document.addEventListener("DOMContentLoaded", () => {
   const closeLoginModal = document.querySelector(".close-login-modal");
   const loginMessage = document.getElementById("login-message");
 
+  // Dark mode toggle
+  const darkModeToggle = document.getElementById("dark-mode-toggle");
+
+  function applyDarkMode(isDark) {
+    document.body.classList.toggle("dark", isDark);
+    darkModeToggle.textContent = isDark ? "☀️" : "🌙";
+    darkModeToggle.title = isDark ? "Switch to light mode" : "Switch to dark mode";
+  }
+
+  // Load saved preference or default to light mode
+  applyDarkMode(localStorage.getItem("darkMode") === "true");
+
+  darkModeToggle.addEventListener("click", () => {
+    const isDark = !document.body.classList.contains("dark");
+    localStorage.setItem("darkMode", isDark);
+    applyDarkMode(isDark);
+  });
+
   // Activity categories with corresponding colors
   const activityTypes = {
     sports: { label: "Sports", color: "#e8f5e9", textColor: "#2e7d32" },
